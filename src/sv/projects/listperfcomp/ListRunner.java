@@ -4,6 +4,12 @@ import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.CountDownLatch;
 
+/**
+ * A <code>Callable</code> task executor for the List Performance Comparator (see {@link PerformanceComparator})
+ * that iterates through a list within defined limits and performs <code>get()</code> or <code>add()</code> actions
+ * on each member returning elapsed time.
+ */
+
 public class ListRunner implements Callable<Long> {
     private List<Integer> list;
     private int start;

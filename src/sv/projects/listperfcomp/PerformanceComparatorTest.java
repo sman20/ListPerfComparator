@@ -135,12 +135,12 @@ class PerformanceComparatorTest {
         assertArrayEquals(newPars, PerformanceComparator.listIniPars);
     }
 
-    public void setupStreams() {
+    private void setupStreams() {
         System.setOut(new PrintStream(outContent));
         System.setErr(new PrintStream(errContent));
     }
 
-    public void restoreStreams() {
+    private void restoreStreams() {
         System.setOut(originalOut);
         System.setErr(originalErr);
     }

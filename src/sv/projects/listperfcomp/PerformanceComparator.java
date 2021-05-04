@@ -6,8 +6,9 @@ import java.util.concurrent.*;
 
 /**
  * Entry point to the List Concurrent Performance Comparator that measures performance of different types of lists -
- * <code>CopyOnWriteArrList, SynchronizedRandomAccessList, ArrayList, LinkedList,</code> ... - in the case when the Lists are
- * accessed by two concurrent threads performing <code>get()</code> or <code>add()</code> actions.
+ * <code>CopyOnWriteArrList, SynchronizedRandomAccessList, ArrayList, LinkedList,</code> ...
+ * - in the case when the Lists are accessed by two concurrent threads performing
+ * <code>get()</code> or <code>add()</code> actions.
  <br>
  The Comparator has got an interactive command-line menu through which it is possible to :
  <ul>
@@ -36,6 +37,10 @@ import java.util.concurrent.*;
   <br><i>Example:</i><br>
  <pre>          CopyOnWriteArrayList, size [1000]  -  action: get()  |  thread 1 :       2 ms  |  thread 2 :       2 ms
   SynchronizedRandomAccessList, size [1000]  -  action: get()  |  thread 1 :      11 ms  |  thread 2 :      13 ms</pre>
+ <br>
+ <h3>JUnit tests</h3>
+ JUnit tests are covering a part of functionality.
+
  @author S.V.
  @version 1.0.0
  @since 2021-05-01
@@ -70,8 +75,8 @@ public class PerformanceComparator {
         }
     }
 
-    private static boolean isInitialDataValid() {       // note, the order is important here
-        return isListWithData(list1, "1st") && isListWithData(list2, "2nd") && isIniParsCorrect() && isTestCyclesCorrect();
+    private static boolean isInitialDataValid() {       // NOTE, the order is important here
+        return isListWithData(list1, "1st") && isListWithData(list2, "2nd") && isIniParsCorrect() && isTestCyclesCorrect() && areParsAndListsSynced();
     }
 
     private static void testListsPerfAndPrint(Action action) {
@@ -83,7 +88,12 @@ public class PerformanceComparator {
         if (listIniPars == null || listIniPars.length != 3 || listIniPars[0] < 1 || listIniPars[1] >= listIniPars[2]) {
             System.out.println("WARNING - Three list configuration pars are not correct ! Actual: [" + Arrays.toString(listIniPars) + "]");
             return false;
-        } else if ((list1.size() != listIniPars[0] || list2.size() != listIniPars[0]) && list1.size() != 0 && list2.size() != 0) {
+        }
+        return true;
+    }
+
+    private static boolean areParsAndListsSynced() {
+        if (list1.size() != 0 && list2.size() != 0 && (list1.size() != listIniPars[0] || list2.size() != listIniPars[0])) {
             System.out.println("WARNING - The list ini par " + listIniPars[0] + " not synced with list sizes : [" + list1.size() + " and " + list2.size() + "]");
             return false;
         }
@@ -156,15 +166,7 @@ public class PerformanceComparator {
         }
     }
 
-    private static void setDefaultListPars() {
-        if (!isIniParsCorrect()) {
-            System.out.println("The list pars are not set, using default values...");
-            listIniPars = new int[]{1000, 0, 10000};        // default pars
-        }
-    }
-
     static void populateList(List<Integer> list) {
-//        System.out.println("Populating the List with data...");
         for (int i = 0; i < listIniPars[0]; i++) {
             // random int from listIniPars[1] included till listIniPars[2] excluded
             int randomValue = (int) (Math.random() * (listIniPars[2] - listIniPars[1]) + listIniPars[1]);

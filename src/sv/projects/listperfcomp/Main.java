@@ -4,10 +4,11 @@ import java.util.*;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
- * Entry public access point to the functionality of the List Concurrent Performance Comparator that measures performance of different types of lists
- * - <code>CopyOnWriteArrList, SynchronizedRandomAccessList, ArrayList, LinkedList,</code> ... - in the case when the Lists are accessed
- * by two concurrent threads performing <code>get()</code> or <code>add()</code> actions.
- * (see {@link PerformanceComparator}).
+ * Entry public access point to the functionality of the List Concurrent Performance Comparator
+ * (see {@link PerformanceComparator}) that measures performance of different types of lists -
+ * <code>CopyOnWriteArrList, SynchronizedRandomAccessList, ArrayList, LinkedList,</code> ... -
+ * in the case when the Lists are accessed by two concurrent threads performing
+ * <code>get()</code> or <code>add()</code> actions.
  */
 
 public class Main {
