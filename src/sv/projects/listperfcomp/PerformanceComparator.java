@@ -15,23 +15,23 @@ import java.util.concurrent.*;
  <li>show current configuration on the screen</li>
  <li>update current configuration</li>
  <li>run tests and show average results for lists under tests</li>
- <li>the following list types can be selected for test :</li>
- <li style="list-style-type: none;">
+ <li>the following list types can be selected for test :
  <ul style="list-style-type: circle;">
  <li><code>CopyOnWriteArrList</code></li>
  <li><code>SynchronizedRandomAccessList</code></li>
  <li><code>ArrayList</code></li>
  <li><code>LinkedList</code></li>
-  </ul>
+ </ul>
  </li>
  </ul>
  <h3>Concurrent performance test description</h3>
- <b>Mechanism of retrieving data</b><br>
- Two <code>Callable</code> threads perform a selected action (<code>access</code> or <code>add</code>) on first and second halves of a list respectively.
+ <h4>Mechanism of retrieving data</h4>
+ Two <code>Callable</code> threads perform a selected action (<code>access</code> a member or <code>add</code> a member)
+ on first and second halves of a list respectively.
  Submitting the threads to <code>newFixedThreadPool</code> and starting them simultaneously via <code>CountDownLatch</code>.
  The threads will compete to perform the action on the assigned part of the list.
  <br><br>
- <b>Further data processing</b><br>
+ <h4>Further data processing</h4>
  The results time is aggregated separately for each thread of each list under test. Then averages are calculated in <code>ms</code>
  and formatted results are printed out.
   <br><i>Example:</i><br>
@@ -42,7 +42,7 @@ import java.util.concurrent.*;
  JUnit tests are covering a part of functionality.
 
  @author S.V.
- @version 1.0.0
+ @version 1.0.1
  @since 2021-05-01
  */
 
@@ -80,8 +80,8 @@ public class PerformanceComparator {
     }
 
     private static void testListsPerfAndPrint(Action action) {
-        printTestResults(list1, action, getIntListPerfInMsAndReset(action, list1));
-        printTestResults(list2, action, getIntListPerfInMsAndReset(action, list2));
+        printTestResults(list1, action, getAvgListPerformanceInMsAndReset(action, list1));
+        printTestResults(list2, action, getAvgListPerformanceInMsAndReset(action, list2));
     }
 
     private static boolean isIniParsCorrect() {
@@ -120,11 +120,11 @@ public class PerformanceComparator {
         System.out.format("%30s, size [%d]  -  action: %s  |  thread 1 : %7d ms  |  thread 2 : %7d ms\n", list.getClass().getSimpleName(), list.size(), action, testResult[0], testResult[1]);
     }
 
-    private static long[] getIntListPerfInMsAndReset(Action action, List<Integer> list) {
+    private static long[] getAvgListPerformanceInMsAndReset(Action action, List<Integer> list) {
         long[] averageResults = new long[]{0L, 0L};
         long[] currentResults;
         for (int i = 0; i < numberOfTestCycles; i++) {
-            currentResults = calcAndPrintTimeToPerformActionOnAllElem(list, action);
+            currentResults = calcTimeToPerformActionOnAllElem(list, action);
             averageResults[0] += currentResults[0];
             averageResults[1] += currentResults[1];
         }
@@ -136,7 +136,7 @@ public class PerformanceComparator {
         return averageResults;
     }
 
-    private static long[] calcAndPrintTimeToPerformActionOnAllElem(List<Integer> list, Action action) {
+    private static long[] calcTimeToPerformActionOnAllElem(List<Integer> list, Action action) {
         CountDownLatch latch = new CountDownLatch(1);
         ExecutorService executor = Executors.newFixedThreadPool(2);
         Future<Long> computationResult1 = executor.submit(new ListRunner(list, 0, listIniPars[0] / 2, latch, action));

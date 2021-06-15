@@ -118,9 +118,60 @@ public class Main {
         System.out.println("4 - test and show average time of ACCESSING all the elements of the lists");
         System.out.println("5 - test and show average time of ADDING new elements to the lists");
         System.out.println("9 - exit");
+//        List<String> stringList = new ArrayList<>();
+//        stringList.add("FF");
+//        stringList.add("BB");
+//        stringList.add("##");
+//        stringList.add("bb");
+//        stringList.add("AA");
+//        stringList.add("aa");
+//        System.out.println(stringList);
+//        stringList.sort(Comparator.naturalOrder());
+//        System.out.println("SORTED: " + stringList);
+//        System.out.println("1st elem: " + stringList.get(0));
+//        maltem();
     }
 
     private static void printSelectListsMenu() {
         System.out.println("1|2|3|4 - choose CopyOnWriteArrList | SynchronizedRandomAccessList | ArrayList | LinkedList");
     }
+
+ /*   private static void maltem() {
+        ArrayList<String> pwdList = new ArrayList<>(
+                Arrays.asList("Ib#", "Blo","F09", "Hkf", "Ev!", "K%2", "Awe",
+                        "Cve", "Lee", "J61", "Gvc", "Dde")
+        );
+
+        List<String> skillList = List.of("Spring", "Java EE 8+", "Hibernate",
+                "JUnit", "Play");
+
+        List<String> mySkills = new ArrayList<>();
+        mySkills.add("Java EE 8+");
+        mySkills.add("JUnit");
+        mySkills.add("Spring 5");
+        mySkills.add("Hibernate");
+        mySkills.add("Lucene");
+        final int[] javaExperience = {0};
+        final int[] curiosity = {0};
+        mySkills.forEach(skill -> {
+            if(skillList.contains(skill)) {
+                javaExperience[0]++;
+            } else {
+                curiosity[0]++;
+            }
+        });
+
+        System.out.println("Exp & curio: " + javaExperience[0] + curiosity[0]);
+
+        if (javaExperience[0] + curiosity[0] > 4) {
+            pwdList.sort(Comparator.naturalOrder());
+            String thePassword = "";
+            for(int i = 0; i < 5; i++) {
+                thePassword += pwdList.get(i).substring(1);
+            }
+            System.out.println(
+                    "Give this password to Nathalie our HR manager: " + thePassword
+            );
+        }
+    }*/
 }
